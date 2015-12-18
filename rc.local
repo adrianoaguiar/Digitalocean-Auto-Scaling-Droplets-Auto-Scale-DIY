@@ -2,7 +2,7 @@ BALANCER="xxx.xxx.xxx.xxx"
 apt-get -y update && apt-get -y upgrade >/dev/null 2>&1
 export PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 ssh -q -oStrictHostKeyChecking=no -i /home/helix/.ssh/id_rsa helix@${BALANCER} "echo ${PRIVATE_IPV4} >> /home/helix/backend/backend.txt" >/dev/null 2>&1
-scp -r -i /home/helix/.ssh/id_rsa helix@${BALANCER}:/home/helix/nginx /etc/nginx >/dev/null 2>&1
+scp -r -i /home/helix/.ssh/id_rsa helix@${BALANCER}:/home/helix/nginx/* /etc/nginx/ >/dev/null 2>&1
 
 cat > /etc/nginx/conf.d/listen.conf <<END
 listen ${PRIVATE_IPV4};
