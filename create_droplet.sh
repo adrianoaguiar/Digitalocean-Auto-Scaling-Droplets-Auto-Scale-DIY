@@ -9,7 +9,7 @@ SSH="xxxxxx"
 # Get CPU qty
 CPU=$(cat /proc/cpuinfo | grep "^processor" | wc -l)
 # Calculate droplet average load 5min
-LOAD_5=$(cat /proc/loadavg | awk '{print $2}' | cut -d' ' -f2)
+LOAD_5=$(cat /proc/loadavg | awk '{print $1}')
 LOAD_AVERAGE_5=$(($(echo ${LOAD_5} | awk '{print 100 * $1}') / ${CPU}))
 # Droplet average 5min load > 75% then create new droplet
 if [ ${LOAD_AVERAGE_5} -ge 75 ] ; then
