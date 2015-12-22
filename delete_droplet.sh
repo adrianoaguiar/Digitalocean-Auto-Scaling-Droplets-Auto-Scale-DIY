@@ -9,10 +9,10 @@ BALANCER="xxx.xxx.xxx.xxx"
 # Get CPU qty
 CPU=$(cat /proc/cpuinfo | grep "^processor" | wc -l)
 # Calculate droplet average load 5min
-LOAD_5=$(cat /proc/loadavg | awk '{print $2}')
-LOAD_AVERAGE_5=$(($(echo ${LOAD_5} | awk '{print 100 * $1}') / ${CPU}))
+LOAD_1=$(cat /proc/loadavg | awk '{print $1}')
+LOAD_AVERAGE_1=$(($(echo ${LOAD_1} | awk '{print 100 * $1}') / ${CPU}))
 # Droplet average 5min load < 25% then delete droplet
-if [ ${LOAD_AVERAGE_5} -le 25 ] ; then
+if [ ${LOAD_AVERAGE_1} -le 25 ] ; then
 # Remove IP from load balancer
 ssh -q -oStrictHostKeyChecking=no -i /home/helix/.ssh/id_rsa helix@${BALANCER} sed -i "/${PRIVATE_IPV4}/d" /home/helix/backend.txt
 # Delete droplet now
